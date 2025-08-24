@@ -16,17 +16,18 @@ TARGET_2ND_CPU_ABI := armeabi-v7a
 TARGET_2ND_CPU_ABI2 := armeabi
 TARGET_2ND_CPU_VARIANT := cortex-a7
 
-# APEX
-OVERRIDE_TARGET_FLATTEN_APEX := true
 
 # Bootloader
 TARGET_NO_BOOTLOADER := false
 
 # Display
 TARGET_SCREEN_DENSITY := 320
-DEVICE_RESOLUTION := 1080x2160                
-TARGET_SCREEN_HEIGHT := 2160                    
-TARGET_SCREEN_WIDTH := 1080 
+DEVICE_RESOLUTION := 720x1280                 # The Resolution of your Device
+TARGET_SCREEN_HEIGHT := 1280                    # The height
+TARGET_SCREEN_WIDTH := 720                      # The width
+TARGET_RECOVERY_PIXEL_FORMAT := "RGBA_8888"
+
+
 
 # Kernel
 BOARD_KERNEL_BASE := 0x40078000
@@ -36,9 +37,9 @@ BOARD_RAMDISK_OFFSET := 0x03f88000
 BOARD_KERNEL_TAGS_OFFSET := 0x0df88000
 BOARD_MKBOOTIMG_ARGS += --ramdisk_offset $(BOARD_RAMDISK_OFFSET)
 BOARD_MKBOOTIMG_ARGS += --tags_offset $(BOARD_KERNEL_TAGS_OFFSET)
-TARGET_KERNEL_CONFIG := h532_a1_defconfig
 TARGET_KERNEL_SOURCE := kernel/infinix/h532_a1
 BOARD_INCLUDE_RECOVERY_DTBO := false
+TARGET_RECOVERY_FSTAB := $(DEVICE_PATH)/recovery.fstab
 
 # Kernel - prebuilt
 TARGET_FORCE_PREBUILT_KERNEL := true
@@ -58,6 +59,7 @@ TARGET_COPY_OUT_VENDOR := vendor
 BOARD_RAMDISK_USE_LZ4 := true
 BOARD_HAS_NO_MISC_PARTITION := true
 BOARD_HAS_NO_REAL_SDCARD := true
+BOARD_USES_MMCUTILS := true
 
 
 
@@ -87,5 +89,11 @@ TW_DEFAULT_LANGUAGE := en
 BOARD_USES_MTK_HARDWARE := true
 BOARD_HAS_MTK_HARDWARE := true
 TWHAVE_SELINUX := true
+TW_MAX_BRIGHTNESS := 255
+TW_DEFAULT_BRIGHTNESS := 80
 TW_NEVER_UNMOUNT_SYSTEM := true
 TW_INCLUDE_INJECTTWRP := false
+TW_BRIGHTNESS_PATH := /sys/class/leds/lcd-backlight/brightness
+TW_SECONDARY_BRIGHTNESS_PATH := /sys/devices/platform/leds-mt65xx/leds/lcd-backlight/brightness
+TARGET_USE_CUSTOM_LUN_FILE_PATH := /sys/devices/platform/mt_usb/musb-hdrc.0.auto/gadget/lun%d/file
+TARGET_USE_CUSTOM_LUN_FILE_PATH := /sys/class/android_usb/android0/f_mass_storage/lun/file
